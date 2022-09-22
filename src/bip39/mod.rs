@@ -135,37 +135,12 @@ impl BIP39 {
 
     /// create new mnemonic by the given entropy bytes.
     pub fn new_mnemonic(&self, entropy: &[u8]) -> Result<String, Error> {
-        let ent_bits = entropy.len() * 8;
-        let checksum_bits = ent_bits / 32;
-        let sentence_bits = ent_bits + checksum_bits;
-
-        if sentence_bits % 11 != 0 {
-            return Err(Error::InvalidEntropyBits(ent_bits));
+        let checksum = self.add_checksum(entropy);
+        let mut result = Vec::with_capacity(checksum.len() * 3 / 4);
+        for i in 0..checksum.len() * 3 / 4 {
+            let index = (checksum[i / 3] >> (5 - (i % 3) * 2)) & 0x1f;
+            result.push(self.0.get(index as usize).ok_or(Error::InvalidWordIndex(index as usize))?);
         }
-
-        let mut result = Vec::with_capacity(sentence_bits / 11);
-        let mut bits = 0;
-        let mut value = 0;
-
-        // add checksum to the entropy
-        let entropy = &self.add_checksum(entropy);
-
-        for byte in entropy {
-            value = (value << 8) | (*byte as u32);
-            bits += 8;
-
-            while bits >= 11 {
-                bits -= 11;
-                let index = ((value >> bits) & 0x7FF) as usize;
-                result.push(self.0.get(index).ok_or(Error::InvalidWordIndex(index))?);
-            }
-        }
-
-        if bits > 0 {
-            let index = ((value << (11 - bits)) & 0x7FF) as usize;
-            result.push(self.0.get(index).ok_or(Error::InvalidWordIndex(index))?);
-        }
-
         Ok(result.join(" "))
     }
 
