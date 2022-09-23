@@ -20,6 +20,8 @@
 mod error;
 mod language;
 mod mnemonic;
+mod seed;
 
 pub use language::Language;
-pub use mnemonic::Mnemonic;
+pub use mnemonic::{Mnemonic, Type};
+pub use seed::Seed;
