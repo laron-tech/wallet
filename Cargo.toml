@@ -17,6 +17,7 @@ sha2 = "0.10.6"
 pbkdf2 = "0.11.0"
 hmac = "0.12.1"
 laron-primitives = "0.1"
+unicode-normalization = "0.1"
 
 [features]
 chinese_simplified = []
