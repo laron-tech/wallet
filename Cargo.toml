@@ -14,6 +14,19 @@ repository = "https://github.com/laron-tech/laron-wallet"
 [dependencies]
 rand = "0.8.4"
 sha2 = "0.10.6"
-hex = "0.4"
 pbkdf2 = "0.11.0"
 hmac = "0.12.1"
+laron-primitives = "0.1"
+
+[features]
+chinese_simplified = []
+chinese_traditional = []
+czech = []
+english = []
+french = []
+italian = []
+japanese = []
+korean = []
+spanish = []
+
+all = ["chinese_simplified", "chinese_traditional", "czech", "french", "italian", "japanese", "korean", "spanish"]
