@@ -17,9 +17,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use std::fmt;
+use std::{fmt, str::FromStr};
 
-use laron_primitives::FromStr;
 use rand::Rng;
 use sha2::{Digest, Sha256};
 use unicode_normalization::UnicodeNormalization;
@@ -292,5 +291,12 @@ mod test {
     fn test_mnemonic_validate() {
         let phrase = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about";
         Mnemonic::validate(phrase, Language::English).unwrap();
+    }
+
+    #[test]
+    fn test_extra() {
+        let mnemonic = Mnemonic::new(Type::Words24, Language::English).unwrap();
+        let mnemonic2 = Mnemonic::from_phrase(mnemonic.phrase(), Language::English).unwrap();
+        assert_eq!(mnemonic.phrase(), mnemonic2.phrase());
     }
 }
