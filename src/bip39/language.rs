@@ -48,6 +48,8 @@ pub enum Language {
     Japanese,
     #[cfg(feature = "korean")]
     Korean,
+    #[cfg(feature = "portuguese")]
+    Portuguese,
     #[cfg(feature = "spanish")]
     Spanish,
 }
@@ -99,6 +101,12 @@ impl Language {
             #[cfg(feature = "korean")]
             Language::Korean => WordList {
                 data: include_str!("./wordlists/korean.txt")
+                    .split_whitespace()
+                    .collect(),
+            },
+            #[cfg(feature = "portuguese")]
+            Language::Portuguese => WordList {
+                data: include_str!("./wordlists/portuguese.txt")
                     .split_whitespace()
                     .collect(),
             },

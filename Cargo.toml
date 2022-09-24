@@ -11,13 +11,6 @@ repository = "https://github.com/laron-tech/laron-wallet"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
-rand = "0.8.4"
-sha2 = "0.10.6"
-pbkdf2 = "0.11.0"
-hmac = "0.12.1"
-unicode-normalization = "0.1"
-
 [features]
 chinese_simplified = []
 chinese_traditional = []
@@ -27,6 +20,25 @@ french = []
 italian = []
 japanese = []
 korean = []
+portuguese = []
 spanish = []
 
-all = ["chinese_simplified", "chinese_traditional", "czech", "french", "italian", "japanese", "korean", "spanish"]
+all = [
+  "chinese_simplified",
+  "chinese_traditional",
+  "czech",
+  "french",
+  "italian",
+  "japanese",
+  "korean",
+  "portuguese",
+  "spanish",
+]
+
+[dependencies]
+rand = "0.8.4"
+sha2 = "0.10.6"
+pbkdf2 = "0.11.0"
+hmac = "0.12.1"
+unicode-normalization = "0.1"
+laron-crypto = { version = "*", git = "https://github.com/laron-tech/crypto" }
