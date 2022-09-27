@@ -17,4 +17,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-mod extended;
+pub type Result<T> = std::result::Result<T, Error>;
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Error {
+    v: String,
+}
+
+impl<T> From<T> for Error
+where
+    T: std::fmt::Display,
+{
+    fn from(e: T) -> Self {
+        Error {
+            v: format!("{}", e),
+        }
+    }
+}
