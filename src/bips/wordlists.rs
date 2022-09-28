@@ -17,7 +17,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use crate::error::Result;
+use horror::Result;
 use std::collections::HashMap;
 
 /// Error returned when a word is not found in a wordlist or error
@@ -34,6 +34,8 @@ impl std::fmt::Display for WordListError {
         }
     }
 }
+
+impl std::error::Error for WordListError {}
 
 /// A wordlist is a list of words that can be used to generate a mnemonic.
 #[derive(Debug, Clone, PartialEq, Eq)]
