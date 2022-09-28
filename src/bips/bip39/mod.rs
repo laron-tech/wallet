@@ -17,6 +17,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+//! # BIP39 Mnemonic and Seed Generation
+//!
+//! This module implements the BIP39 standard for mnemonic generation and seed
+//! generation. It is used to generate a mnemonic phrase from a given entropy
+//! and to generate a seed from a given mnemonic phrase and a password.
+//! The seed can be used to generate a master private key.
+//!
+//! ## Example
+//! ```rust
+//! use laron_wallet::bips::bip39::{Mnemonic, MnemonicType};
+//! use laron_wallet::bips::wordlists::Language;
+//!
+//! let mnemonic = Mnemonic::new(MnemonicType::Words12, Language::English);
+//! let seed = mnemonic.to_seed("password");
+//! ```
+
 mod mnemonic;
 mod seed;
 

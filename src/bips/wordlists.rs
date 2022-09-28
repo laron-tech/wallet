@@ -17,6 +17,37 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+//! Language of the wordlist as defined in
+//! [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
+//!
+//! The wordlist is a list of words that can be used to generate a mnemonic.
+//! At the moment, only 10 languages are supported.
+//! - English
+//! - Chinese (Simplified)
+//! - Chinese (Traditional)
+//! - French
+//! - Italian
+//! - Japanese
+//! - Korean
+//! - Spanish
+//! - Portuguese
+//! - Czech
+//!
+//! # Example
+//! ```rust
+//! use laron_wallet::bips::wordlists::Language;
+//!
+//! let lang = Language::English;
+//! let wordlist = lang.wordlist(); // returns a list of words
+//! assert_eq!(wordlist.get(0).unwrap(), "abandon");
+//! ```
+//!
+//! You can also using another language by adding the feature flag on the Cargo.toml
+//! ```toml
+//! [dependencies]
+//! laron-wallet = { version = "0.1", features = ["chinese_simplified"] }
+//! ```
+
 use horror::Result;
 use std::collections::HashMap;
 
@@ -167,6 +198,7 @@ impl Language {
         }
     }
 
+    /// Get the wordmap for the given language.
     pub fn wordmap(self) -> WordMap {
         let mut map = HashMap::new();
         for (i, word) in self.wordlist().0.iter().enumerate() {

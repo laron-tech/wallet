@@ -17,6 +17,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+//! # TODO
+//! - [ ] Add tests
+//! - [ ] Add documentation
+//! - [ ] Optimize code
+//! - [ ] Support public key derivation
+
 use super::{bip39::Seed, ChildNumber, DerivationPath};
 use hmac::{Hmac, Mac};
 use horror::Result;
