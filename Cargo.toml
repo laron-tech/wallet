@@ -1,12 +1,12 @@
 [package]
 name = "laron-wallet"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "GPL-3.0-or-later"
 authors = ["Ade M Ramdani <curiousdev04@gmail.com>"]
 description = "Ethereum wallet library"
 readme = "README.md"
-keywords = ["crypto", "ethereum", "keccak"]
+keywords = ["crypto", "ethereum", "keccak", "bip32", "bip39"]
 repository = "https://github.com/laron-tech/laron-wallet"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

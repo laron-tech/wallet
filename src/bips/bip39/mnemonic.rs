@@ -45,6 +45,11 @@ impl std::fmt::Display for MnemonicError {
 
 impl std::error::Error for MnemonicError {}
 
+/// The type of mnemonic to generate.
+/// The number of words in the mnemonic is determined by the type.
+/// The number of bits of entropy is also determined by the type.
+/// The number of bits of entropy must be a multiple of 32 and between 128 ~ 256.
+/// The number of words in the mnemonic is always a multiple of 3 and between 12 ~ 24.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MnemonicType {
     /// 12 words
@@ -105,6 +110,9 @@ impl MnemonicType {
     }
 }
 
+/// A BIP39 mnemonic.
+/// A mnemonic is a sequence of words that can be used to generate a seed.
+/// It is defined in [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Mnemonic {
     language: Language,
@@ -233,7 +241,7 @@ impl Mnemonic {
 
     /// Return the seed of the mnemonic.
     pub fn to_seed(&self, passphrase: &str) -> Seed {
-        Seed::from_mnemonic(self, passphrase)
+        Seed::new(self, passphrase)
     }
 }
 

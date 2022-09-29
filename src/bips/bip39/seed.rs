@@ -21,24 +21,18 @@ use super::Mnemonic;
 use horror::{Error, Result};
 use unicode_normalization::UnicodeNormalization;
 
-/// Seed is a 512-bit (64-byte) array used to initialize a BIP32 HD wallet.
-/// It is generated from a mnemonic using the BIP39 standard.
+/// A seed is a secret value that is used to generate private keys.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub struct Seed([u8; 64]);
+pub struct Seed(Vec<u8>);
 
 impl Seed {
-    /// Create a new Seed from a byte array.
-    pub fn new(seed: [u8; 64]) -> Self {
-        Self(seed)
-    }
-
     /// Return the underlying byte array.
     pub fn to_bytes(&self) -> &[u8] {
         &self.0
     }
 
     /// Create a new Seed from a mnemonic and a passphrase.
-    pub fn from_mnemonic(mnemonic: &Mnemonic, passphrase: &str) -> Self {
+    pub fn new(mnemonic: &Mnemonic, passphrase: &str) -> Self {
         let salt = format!("mnemonic{}", passphrase);
         let normalized = salt.nfkd().collect::<String>();
 
@@ -50,7 +44,17 @@ impl Seed {
             &mut data,
         );
 
-        Self(data)
+        Self(data.to_vec())
+    }
+
+    /// Return the length of the seed.
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+
+    /// Return true if the seed is empty.
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
 }
 
@@ -65,8 +69,18 @@ impl std::str::FromStr for Seed {
 
     fn from_str(s: &str) -> Result<Self> {
         let bytes = hex::decode(s)?;
-        let mut seed = [0u8; 64];
-        seed.copy_from_slice(&bytes);
-        Ok(Self(seed))
+        Ok(Self(bytes))
+    }
+}
+
+impl From<Vec<u8>> for Seed {
+    fn from(bytes: Vec<u8>) -> Self {
+        Self(bytes)
+    }
+}
+
+impl AsRef<[u8]> for Seed {
+    fn as_ref(&self) -> &[u8] {
+        &self.0
     }
 }
