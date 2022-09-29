@@ -17,11 +17,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-mod error;
-mod language;
-mod mnemonic;
-mod seed;
+pub mod bip39;
+pub mod wordlists;
+pub mod bip32;
 
-pub use language::Language;
-pub use mnemonic::{Mnemonic, Type};
-pub use seed::Seed;
+mod path;
+pub use path::*;
